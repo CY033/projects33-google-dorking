@@ -29,7 +29,8 @@ To build the executable from the source, follow these steps:
  
 2. Run the following command to install requirements:
 ```sh
-   pip install -r requirements.txt```
+   pip install -r requirements.txt
+   ```
 3. Install `pyinstaller`:
     ```sh
     pip install pyinstaller

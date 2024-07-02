@@ -26,26 +26,21 @@ To build the executable from the source, follow these steps:
     git clone https://github.com/Musharraf33/projects33-google-dorking.git
     cd googledoc
     ```
-2. Go to the googledoc directory :
-
-   ```
-   cd GoogleDoc
-   ```
-4. Run the following command to install requirements :
-```
-   pip install -r requirements.txt
-    ```
-2. Install `pyinstaller`:
+ 
+2. Run the following command to install requirements:
+```sh
+   pip install -r requirements.txt```
+3. Install `pyinstaller`:
     ```sh
     pip install pyinstaller
     ```
 
-3. Create the executable:
+4. Create the executable:
     ```sh
     pyinstaller --onefile --windowed --name GoogleDoc googledoc.py
     ```
 
-4. The executable will be available in the `dist` directory.
+5. The executable will be available in the `dist` directory.
 
 ## Important Notes
 

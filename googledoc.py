@@ -1,7 +1,24 @@
-import webbrowser
+import requests
 import tkinter as tk
 from tkinter import messagebox
 import sys
+import os
+from bs4 import BeautifulSoup
+
+banner = ''' 
+ 
+               ______                  __          ____             __            
+              / ____/___  ____  ____ _/ /__       / __ \____  _____/ /_____  _____
+             / / __/ __ \/ __ \/ __ `/ / _ \     / / / / __ \/ ___/ //_/ _ \/ ___/
+            / /_/ / /_/ / /_/ / /_/ / /  __/    / /_/ / /_/ / /  / ,< /  __/ /    
+            \____/\____/\____/\__, /_/\___/    /_____/\____/_/  /_/|_|\___/_/     
+                             /____/                                                 
+
+    Made By: Musharraf khan (github.com/Musharraf33)
+'''
+
+
+
 
 def google_dork(target):
     dorks = [
@@ -139,86 +156,6 @@ def google_dork(target):
         f'site:{target} "form template filetype:pdf"',
         f'site:{target} "worksheet filetype:pdf"',
         f'site:{target} "spreadsheet filetype:pdf"',
-        f'site:{target} "database filetype:pdf"',
-        f'site:{target} "data sheet filetype:pdf"',
-        f'site:{target} "data set filetype:pdf"',
-        f'site:{target} "data report filetype:pdf"',
-        f'site:{target} "data analysis filetype:pdf"',
-        f'site:{target} "research report filetype:pdf"',
-        f'site:{target} "research paper filetype:pdf"',
-        f'site:{target} "thesis filetype:pdf"',
-        f'site:{target} "dissertation filetype:pdf"',
-        f'site:{target} "white paper filetype:pdf"',
-        f'site:{target} "case study filetype:pdf"',
-        f'site:{target} "business analysis filetype:pdf"',
-        f'site:{target} "business research filetype:pdf"',
-        f'site:{target} "industry analysis filetype:pdf"',
-        f'site:{target} "market analysis filetype:pdf"',
-        f'site:{target} "competitor analysis filetype:pdf"',
-        f'site:{target} "swot analysis filetype:pdf"',
-        f'site:{target} "pest analysis filetype:pdf"',
-        f'site:{target} "risk analysis filetype:pdf"',
-        f'site:{target} "financial analysis filetype:pdf"',
-        f'site:{target} "economic analysis filetype:pdf"',
-        f'site:{target} "policy analysis filetype:pdf"',
-        f'site:{target} "regulatory analysis filetype:pdf"',
-        f'site:{target} "compliance analysis filetype:pdf"',
-        f'site:{target} "gap analysis filetype:pdf"',
-        f'site:{target} "root cause analysis filetype:pdf"',
-        f'site:{target} "impact analysis filetype:pdf"',
-        f'site:{target} "process analysis filetype:pdf"',
-        f'site:{target} "performance analysis filetype:pdf"',
-        f'site:{target} "efficiency analysis filetype:pdf"',
-        f'site:{target} "effectiveness analysis filetype:pdf"',
-        f'site:{target} "benchmarking analysis filetype:pdf"',
-        f'site:{target} "cost analysis filetype:pdf"',
-        f'site:{target} "benefit analysis filetype:pdf"',
-        f'site:{target} "decision analysis filetype:pdf"',
-        f'site:{target} "scenario analysis filetype:pdf"',
-        f'site:{target} "sensitivity analysis filetype:pdf"',
-        f'site:{target} "variance analysis filetype:pdf"',
-        f'site:{target} "trend analysis filetype:pdf"',
-        f'site:{target} "forecasting analysis filetype:pdf"',
-        f'site:{target} "statistical analysis filetype:pdf"',
-        f'site:{target} "predictive analysis filetype:pdf"',
-        f'site:{target} "quantitative analysis filetype:pdf"',
-        f'site:{target} "qualitative analysis filetype:pdf"',
-        f'site:{target} "descriptive analysis filetype:pdf"',
-        f'site:{target} "inferential analysis filetype:pdf"',
-        f'site:{target} "comparative analysis filetype:pdf"',
-        f'site:{target} "data mining filetype:pdf"',
-        f'site:{target} "machine learning filetype:pdf"',
-        f'site:{target} "artificial intelligence filetype:pdf"',
-        f'site:{target} "deep learning filetype:pdf"',
-        f'site:{target} "neural network filetype:pdf"',
-        f'site:{target} "algorithm filetype:pdf"',
-        f'site:{target} "model filetype:pdf"',
-        f'site:{target} "simulation filetype:pdf"',
-        f'site:{target} "optimization filetype:pdf"',
-        f'site:{target} "validation filetype:pdf"',
-        f'site:{target} "verification filetype:pdf"',
-        f'site:{target} "certification filetype:pdf"',
-        f'site:{target} "accreditation filetype:pdf"',
-        f'site:{target} "audit filetype:pdf"',
-        f'site:{target} "assessment filetype:pdf"',
-        f'site:{target} "evaluation filetype:pdf"',
-        f'site:{target} "review filetype:pdf"',
-        f'site:{target} "report filetype:pdf"',
-        f'site:{target} "documentation filetype:pdf"',
-        f'site:{target} "manual filetype:pdf"',
-        f'site:{target} "guideline filetype:pdf"',
-        f'site:{target} "policy filetype:pdf"',
-        f'site:{target} "procedure filetype:pdf"',
-        f'site:{target} "framework filetype:pdf"',
-        f'site:{target} "standard filetype:pdf"',
-        f'site:{target} "best practice filetype:pdf"',
-        f'site:{target} "toolkit filetype:pdf"',
-        f'site:{target} "template filetype:pdf"',
-        f'site:{target} "form filetype:pdf"',
-        f'site:{target} "checklist filetype:pdf"',
-        f'site:{target} "worksheet filetype:pdf"',
-        f'site:{target} "spreadsheet filetype:pdf"',
-        f'site:{target} "database filetype:pdf"',
         f'site:{target} "data sheet filetype:pdf"',
         f'site:{target} "data set filetype:pdf"',
         f'site:{target} "data report filetype:pdf"',
@@ -282,11 +219,12 @@ def google_dork(target):
         f'site:{target} "assessment filetype:pdf"',
         f'site:{target} "evaluation filetype:pdf"',
         f'site:{target} "review filetype:pdf"'
+
     ]
 
     for dork in dorks:
         url = f'https://www.google.com/search?q={dork}'
-        webbrowser.open(url)
+        webbrowser.open_new_tab(url)
 
 def on_submit():
     target = entry.get()
@@ -318,6 +256,9 @@ if __name__ == "__main__":
         root = tk.Tk()
         root.title("GoogleDoc")
 
+        # Display banner
+        print(banner)
+
         # Create and place the widgets
         label = tk.Label(root, text="Enter the target domain (e.g., example.com):")
         label.pack(padx=10, pady=10)
@@ -330,3 +271,4 @@ if __name__ == "__main__":
 
         # Run the application
         root.mainloop()
+        

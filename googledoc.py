@@ -252,7 +252,7 @@ if __name__ == "__main__":
     if "--help" in sys.argv:
         show_help()
     else:
-        # Create the main window
+        # Create main  
         root = tk.Tk()
         root.title("GoogleDoc")
 
@@ -269,6 +269,6 @@ if __name__ == "__main__":
         button = tk.Button(root, text="Start Google Dorking", command=on_submit)
         button.pack(padx=10, pady=10)
 
-        # Run the application
+        # Run
         root.mainloop()
         

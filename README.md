@@ -36,9 +36,9 @@ To build the executable from the source, follow these steps:
     pip install pyinstaller
     ```
 
-4. Create the executable:
+4. Run:
     ```sh
-    pyinstaller --onefile --windowed --name GoogleDoc googledoc.py
+     python googledoc.py
     ```
 
 5. The executable will be available in the `dist` directory.

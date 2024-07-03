@@ -1,6 +1,6 @@
 import webbrowser
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import messagebox, simpledialog
 import sys
 
 banner = ''' 
@@ -14,33 +14,7 @@ banner = '''
     Made By: Musharraf khan (github.com/Musharraf33)
 '''
 
-def google_dork(target, search_engine):
-    dorks = [
-        f'site:{target}',
-        f'site:{target} intitle:index.of',
-        f'site:{target} inurl:login',
-        f'site:{target} inurl:admin',
-        f'site:{target} filetype:pdf',
-        f'site:{target} filetype:xls',
-        f'site:{target} "confidential"',
-        f'site:{target} "sensitive information"',
-        f'site:{target} "password"',
-        f'site:{target} "user credentials"',
-        f'site:{target} "financial report"',
-        f'site:{target} "proprietary"',
-        f'site:{target} "for internal use only"',
-        f'site:{target} "internal audit"',
-        f'site:{target} "employee details"',
-        f'site:{target} "internal memo"',
-        f'site:{target} "meeting minutes"',
-        f'site:{target} "private"',
-        f'site:{target} "restricted"',
-        f'site:{target} "backup"',
-        f'site:{target} "db_backup"',
-        f'site:{target} "database"',
-        # Add more dorks as needed
-    ]
-
+def google_dork(target, search_engine, dorks):
     search_engines = {
         'Google': 'https://www.google.com/search?q=',
         'Bing': 'https://www.bing.com/search?q=',
@@ -57,16 +31,24 @@ def google_dork(target, search_engine):
     base_url = search_engines[search_engine]
 
     for dork in dorks:
-        url = f'{base_url}{dork}'
+        url = f'{base_url}site:{target} {dork}'
         webbrowser.open_new_tab(url)
 
 def on_submit():
     target = entry.get().strip()
     search_engine = search_engine_var.get()
+    dorking_type = dorking_type_var.get()
 
     if target:
+        if dorking_type == "Automatic":
+            limit = simpledialog.askinteger("Limit", "Enter the number of dorks to perform:", minvalue=1, maxvalue=len(predefined_dorks))
+            dorks = predefined_dorks[:limit]
+        else:
+            custom_dork = simpledialog.askstring("Custom Dork", "Enter your custom dork:")
+            dorks = [custom_dork]
+
         try:
-            google_dork(target, search_engine)
+            google_dork(target, search_engine, dorks)
         except ValueError as e:
             messagebox.showerror("Error", str(e))
     else:
@@ -86,6 +68,62 @@ def show_help():
         --help          Show this help message and exit.
     """
     print(help_message)
+
+predefined_dorks = [
+    'intitle:index.of',
+    'inurl:login',
+    'inurl:admin',
+    'filetype:pdf',
+    'filetype:xls',
+    '"confidential"',
+    '"sensitive information"',
+    '"password"',
+    '"user credentials"',
+    '"financial report"',
+    '"proprietary"',
+    '"for internal use only"',
+    '"internal audit"',
+    '"employee details"',
+    '"internal memo"',
+    '"meeting minutes"',
+    '"private"',
+    '"restricted"',
+    '"backup"',
+    '"db_backup"',
+    '"database"',
+    '"benefit analysis filetype:pdf"',
+    '"decision analysis filetype:pdf"',
+    '"scenario analysis filetype:pdf"',
+    '"sensitivity analysis filetype:pdf"',
+    '"variance analysis filetype:pdf"',
+    '"trend analysis filetype:pdf"',
+    '"forecasting analysis filetype:pdf"',
+    '"statistical analysis filetype:pdf"',
+    '"predictive analysis filetype:pdf"',
+    '"quantitative analysis filetype:pdf"',
+    '"qualitative analysis filetype:pdf"',
+    '"descriptive analysis filetype:pdf"',
+    '"inferential analysis filetype:pdf"',
+    '"comparative analysis filetype:pdf"',
+    '"data mining filetype:pdf"',
+    '"machine learning filetype:pdf"',
+    '"artificial intelligence filetype:pdf"',
+    '"deep learning filetype:pdf"',
+    '"neural network filetype:pdf"',
+    '"algorithm filetype:pdf"',
+    '"model filetype:pdf"',
+    '"simulation filetype:pdf"',
+    '"optimization filetype:pdf"',
+    '"validation filetype:pdf"',
+    '"verification filetype:pdf"',
+    '"certification filetype:pdf"',
+    '"accreditation filetype:pdf"',
+    '"audit filetype:pdf"',
+    '"assessment filetype:pdf"',
+    '"evaluation filetype:pdf"',
+    '"review filetype:pdf"',
+    # Add more dorks as needed
+]
 
 if __name__ == "__main__":
     if "--help" in sys.argv:
@@ -112,6 +150,14 @@ if __name__ == "__main__":
 
         search_engine_dropdown = tk.OptionMenu(root, search_engine_var, 'Google', 'Bing', 'DuckDuckGo', 'Yahoo', 'Firefox', 'Shodan', 'Censys Search')
         search_engine_dropdown.pack(padx=10, pady=5)
+
+        dorking_type_var = tk.StringVar(root)
+        dorking_type_var.set('Automatic')  # default value
+        dorking_type_label = tk.Label(root, text="Select dorking type:")
+        dorking_type_label.pack(padx=10, pady=5)
+
+        dorking_type_dropdown = tk.OptionMenu(root, dorking_type_var, 'Automatic', 'Manual')
+        dorking_type_dropdown.pack(padx=10, pady=5)
 
         button = tk.Button(root, text="Start Google Dorking", command=on_submit)
         button.pack(padx=10, pady=10)

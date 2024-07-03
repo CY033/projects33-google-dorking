@@ -36,12 +36,44 @@ To build the executable from the source, follow these steps:
     pip install pyinstaller
     ```
 
-4. Run:
+4. Run in GUI mode:
     ```sh
      python googledoc.py
     ```
 
 5. The executable will be available in the `dist` directory.
+
+
+
+
+
+## CLI mode
+1. Clone the repositor:
+    ```sh
+    git clone https://github.com/Musharraf33/projects33-google-dorking.git
+    cd googledoc
+    ```
+     
+2. Open help manu:
+```sh
+   python googledoc.py --help
+   ```
+```sh
+   python googledoc.py -h
+   ```
+
+3. Use argument  :
+    ```sh
+    python3 googledoc.py -u < domain > -e < select search engine >  -d < dork >  -t 2
+
+    ```
+
+4. Also use file which contain number of dorks :
+    ```sh
+     python googledoc.py 
+    ```
+
+
 
 ## Important Notes
 

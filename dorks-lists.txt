@@ -1,4 +1,6 @@
-# Basic Dorks :
+ #Advanced Dorks:
+
+
     'intitle:"index of" .bash_history',
     'intitle:"index of" .git',
     'intitle:"index of" .htpasswd',
@@ -158,7 +160,7 @@
 
 
 
-#Advanced Dorks:
+
 
     'intitle:"index of" AND intext:"parent directory" AND ("private" OR "backup" OR "admin" OR "root" OR "logs")',
     'intitle:"index of" AND intext:".gitignore" AND site:github.com',

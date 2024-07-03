@@ -47,6 +47,8 @@ To build the executable from the source, follow these steps:
 
 - Ensure you have permission to perform Google dorking on the specified target.
 - This tool is intended for educational and authorized security testing purposes only. Unauthorized use is illegal and unethical.
+- Before start Dorking open firfox or any browser.
+
 
 ## License
 

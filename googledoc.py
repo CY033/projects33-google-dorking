@@ -1,17 +1,16 @@
 import webbrowser
 import tkinter as tk
-from tkinter import messagebox, simpledialog, ttk
+from tkinter import messagebox, simpledialog, ttk, filedialog
 import argparse
-import sys
 import time
 
-banner = ''' 
-               ______                  __          ____             __            
+banner = '''
+               ______                  __          ____             __
               / ____/___  ____  ____ _/ /__       / __ \\____  _____/ /_____  _____
              / / __/ __ \\/ __ \\/ __ `/ / _ \\     / / / / __ \\/ ___/ //_/ _ \\/ ___/
-            / /_/ / /_/ / /_/ / /_/ / /  __/    / /_/ / /_/ / /  / ,< /  __/ /    
-            \\____/\\____/\\____/\\__, /_/\\___/    /_____\\/____/_/  /_/|_|\\___/_/     
-                             /____/                                                 
+            / /_/ / /_/ / /_/ / /_/ / /  __/    / /_/ / /_/ / /  / ,< /  __/ /
+            \\____/\\____/\\____/\\__, /_/\\___/    /_____\\/____/_/  /_/|_|\\___/_/
+                             /____/
 
     Made By: Musharraf khan (github.com/Musharraf33)
 '''
@@ -27,51 +26,20 @@ predefined_dorks = [
     '"sensitive information"',
     '"password"',
     '"user credentials"',
-    '"financial report"',
-    '"proprietary"',
-    '"for internal use only"',
-    '"internal audit"',
-    '"employee details"',
-    '"internal memo"',
-    '"meeting minutes"',
-    '"private"',
-    '"restricted"',
-    '"backup"',
-    '"db_backup"',
-    '"database"',
-    '"benefit analysis filetype:pdf"',
-    '"decision analysis filetype:pdf"',
-    '"scenario analysis filetype:pdf"',
-    '"sensitivity analysis filetype:pdf"',
-    '"variance analysis filetype:pdf"',
-    '"trend analysis filetype:pdf"',
-    '"forecasting analysis filetype:pdf"',
-    '"statistical analysis filetype:pdf"',
-    '"predictive analysis filetype:pdf"',
-    '"quantitative analysis filetype:pdf"',
-    '"qualitative analysis filetype:pdf"',
-    '"descriptive analysis filetype:pdf"',
-    '"inferential analysis filetype:pdf"',
-    '"comparative analysis filetype:pdf"',
-    '"data mining filetype:pdf"',
-    '"machine learning filetype:pdf"',
-    '"artificial intelligence filetype:pdf"',
-    '"deep learning filetype:pdf"',
-    '"neural network filetype:pdf"',
-    '"algorithm filetype:pdf"',
-    '"model filetype:pdf"',
-    '"simulation filetype:pdf"',
-    '"optimization filetype:pdf"',
-    '"validation filetype:pdf"',
-    '"verification filetype:pdf"',
-    '"certification filetype:pdf"',
-    '"accreditation filetype:pdf"',
-    '"audit filetype:pdf"',
-    '"assessment filetype:pdf"',
-    '"evaluation filetype:pdf"',
-    '"review filetype:pdf"',
     # Add more dorks as needed
 ]
+
+def load_dorks_from_file(file_path):
+    try:
+        with open(file_path, 'r') as file:
+            dorks = file.readlines()
+        # Strip newline characters and empty lines
+        dorks = [d.strip() for d in dorks if d.strip()]
+        return dorks
+    except FileNotFoundError:
+        raise ValueError(f"File '{file_path}' not found.")
+    except Exception as e:
+        raise ValueError(f"Error loading dorks from file '{file_path}': {str(e)}")
 
 def google_dork(target, search_engine, dorks, limit=None):
     search_engines = {
@@ -99,6 +67,17 @@ def google_dork(target, search_engine, dorks, limit=None):
             break
 
 def run_gui():
+    def save_results_to_file(target, search_engine, dorks):
+        result_file = filedialog.asksaveasfilename(defaultextension=".txt", filetypes=[("Text files", "*.txt")])
+        if result_file:
+            try:
+                with open(result_file, 'w') as f:
+                    for dork in dorks:
+                        f.write(f'{dork}\n')
+                messagebox.showinfo("Save Successful", f"Results saved to '{result_file}' successfully!")
+            except Exception as e:
+                messagebox.showerror("Error", f"Failed to save results: {str(e)}")
+
     root = tk.Tk()
     root.title("GoogleDoc")
 
@@ -127,12 +106,30 @@ def run_gui():
             if dorking_type == "Automatic":
                 limit = simpledialog.askinteger("Limit", "Enter the number of dorks to perform:", minvalue=1, maxvalue=len(predefined_dorks))
                 dorks = predefined_dorks[:limit]
-            else:
+            elif dorking_type == "Manual":
                 custom_dork = dork_entry.get().strip()
-                dorks = [custom_dork]
+                if custom_dork:
+                    dorks = [custom_dork]
+                else:
+                    messagebox.showwarning("Input Error", "Please enter a custom dork.")
+                    return
+            elif dorking_type == "From File":
+                file_path = file_entry.get().strip()
+                try:
+                    dorks = load_dorks_from_file(file_path)
+                except ValueError as e:
+                    messagebox.showerror("Error", str(e))
+                    return
+            else:
+                messagebox.showwarning("Input Error", "Please select a dorking type.")
+                return
 
             try:
                 google_dork(target, search_engine, dorks)
+                messagebox.showinfo("Success", "Google Dorking completed successfully!")
+                
+                if save_var.get():
+                    save_results_to_file(target, search_engine, dorks)
             except ValueError as e:
                 messagebox.showerror("Error", str(e))
         else:
@@ -153,7 +150,7 @@ def run_gui():
         """
         messagebox.showinfo("Help", help_message)
 
-    ttk.Label(main_frame, text="Enter the target domain (e.g., example.com):", style='TLabel').grid(row=0, column=0, sticky=tk.W, pady=10)
+    ttk.Label(main_frame, text="Enter the target domain or URL:", style='TLabel').grid(row=0, column=0, sticky=tk.W, pady=10)
     entry = ttk.Entry(main_frame, width=50, style='TEntry')
     entry.grid(row=1, column=0, pady=10)
 
@@ -166,12 +163,34 @@ def run_gui():
     ttk.Label(main_frame, text="Select dorking type:", style='TLabel').grid(row=4, column=0, sticky=tk.W, pady=10)
     dorking_type_var = tk.StringVar(root)
     dorking_type_var.set('Automatic')  # default value
-    dorking_type_dropdown = ttk.Combobox(main_frame, textvariable=dorking_type_var, values=['Automatic', 'Manual'], state='readonly', style='TCombobox')
+    dorking_type_dropdown = ttk.Combobox(main_frame, textvariable=dorking_type_var, values=['Automatic', 'Manual', 'From File'], state='readonly', style='TCombobox')
     dorking_type_dropdown.grid(row=5, column=0, pady=10)
 
     dork_entry_label = ttk.Label(main_frame, text="Enter your custom dork:", style='TLabel')
     dork_entry = ttk.Combobox(main_frame, width=50, style='TCombobox')
     dork_entry['values'] = predefined_dorks
+
+    file_entry_label = ttk.Label(main_frame, text="Enter path to dorks file:", style='TLabel')
+    file_entry = ttk.Entry(main_frame, width=50, style='TEntry')
+
+    def toggle_dork_entry(*args):
+        if dorking_type_var.get() == "Manual":
+            dork_entry_label.grid(row=6, column=0, sticky=tk.W, pady=10)
+            dork_entry.grid(row=7, column=0, pady=10)
+            dork_entry.focus()  # Set focus to the dork entry box
+            dork_entry.event_generate('<Down>')  # Automatically show suggestions
+        else:
+            dork_entry_label.grid_forget()
+            dork_entry.grid_forget()
+
+    def toggle_file_entry(*args):
+        if dorking_type_var.get() == "From File":
+            file_entry_label.grid(row=6, column=0, sticky=tk.W, pady=10)
+            file_entry.grid(row=7, column=0, pady=10)
+            file_entry.focus()  # Set focus to the file entry box
+        else:
+            file_entry_label.grid_forget()
+            file_entry.grid_forget()
 
     def update_suggestions(event):
         typed = dork_entry.get()
@@ -185,20 +204,15 @@ def run_gui():
         dork_entry.icursor(tk.END)  # Move cursor to the end
         dork_entry.focus_set()  # Set focus back to the combobox
 
-    def toggle_dork_entry(*args):
-        if dorking_type_var.get() == "Manual":
-            dork_entry_label.grid(row=6, column=0, sticky=tk.W, pady=10)
-            dork_entry.grid(row=7, column=0, pady=10)
-            dork_entry.focus()  # Set focus to the dork entry box
-            dork_entry.event_generate('<Down>')  # Automatically show suggestions
-        else:
-            dork_entry_label.grid_forget()
-            dork_entry.grid_forget()
+    save_var = tk.BooleanVar()
+    save_checkbox = ttk.Checkbutton(main_frame, text="Save results", variable=save_var, onvalue=True, offvalue=False, style='TCheckbutton')
+    save_checkbox.grid(row=8, column=0, pady=10)
 
-    ttk.Button(main_frame, text="Start Google Dorking", command=on_submit, style='TButton').grid(row=8, column=0, pady=10)
-    ttk.Button(main_frame, text="Show Help", command=show_help, style='TButton').grid(row=9, column=0, pady=10)
+    ttk.Button(main_frame, text="Start Google Dorking", command=on_submit, style='TButton').grid(row=9, column=0, pady=10)
+    ttk.Button(main_frame, text="Show Help", command=show_help, style='TButton').grid(row=10, column=0, pady=10)
 
     dorking_type_var.trace('w', toggle_dork_entry)
+    dorking_type_var.trace('w', toggle_file_entry)
     dork_entry.bind('<KeyRelease>', update_suggestions)
     dork_entry.bind('<Return>', select_suggestion)  # Move cursor to the end on Enter key
 
@@ -206,29 +220,53 @@ def run_gui():
 
 def main():
     parser = argparse.ArgumentParser(description='GoogleDoc Tool')
-    parser.add_argument('target', metavar='TARGET', type=str, nargs='?', help='Target domain')
+    parser.add_argument('-u', '--url', metavar='URL', type=str, help='Domain or URL to perform Google dorking')
     parser.add_argument('-s', '--search-engine', type=str, choices=['Google', 'Bing', 'DuckDuckGo', 'Yahoo', 'Firefox', 'Shodan', 'Censys Search'], default='Google', help='Search engine to use (default: Google)')
     parser.add_argument('-d', '--dorks', type=str, nargs='+', help='Custom dorks to use')
     parser.add_argument('-a', '--automatic', action='store_true', help='Use predefined dorks automatically')
     parser.add_argument('-l', '--limit', type=int, help='Limit the number of dorks (for automatic mode)')
+    parser.add_argument('-f', '--file', type=str, help='File containing dorks')
+    parser.add_argument('-o', '--output', type=str, help='File name or file path to save the output')
     parser.add_argument('--gui', action='store_true', help='Run the tool in GUI mode')
     args = parser.parse_args()
 
-    if args.gui or not args.target:
+    if args.gui:
         run_gui()
-    else:
-        target = args.target
+    elif args.url:
+        target = args.url
         search_engine = args.search_engine
-        if args.automatic:
+        if args.file:
+            try:
+                dorks = load_dorks_from_file(args.file)
+            except ValueError as e:
+                print(f"Error: {e}")
+                parser.print_help()
+                return
+        elif args.automatic:
             dorks = predefined_dorks[:args.limit] if args.limit else predefined_dorks
         else:
             dorks = args.dorks if args.dorks else []
 
-        try:
-            google_dork(target, search_engine, dorks, args.limit)
-        except ValueError as e:
-            print(f"Error: {e}")
-            parser.print_help()
+        if args.output:
+            output_file = args.output
+            with open(output_file, 'w') as f:
+                try:
+                    for dork in dorks:
+                        f.write(f'{dork}\n')
+                    google_dork(target, search_engine, dorks, args.limit)
+                    print("Google Dorking completed successfully!")
+                except ValueError as e:
+                    print(f"Error: {e}")
+                    parser.print_help()
+        else:
+            try:
+                google_dork(target, search_engine, dorks, args.limit)
+                print("Google Dorking completed successfully!")
+            except ValueError as e:
+                print(f"Error: {e}")
+                parser.print_help()
+    else:
+        parser.print_help()
 
 if __name__ == "__main__":
     main()

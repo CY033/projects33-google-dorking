@@ -25,16 +25,16 @@ To build the executable from the source, follow these steps:
 1. Clone the repository:
     ```sh
     git clone https://github.com/Musharraf33/projects33-google-dorking.git
-    cd googledoc
+     cd googledoc
     ```
  
 2. Run the following command to install requirements:
 ```sh
-   pip install -r requirements.txt
+     pip install -r requirements.txt
    ```
 3. Install `pyinstaller` if your system don't have Python installed then run this :
     ```sh
-    pip install pyinstaller
+     pip install pyinstaller
     ```
 
 5. The executable will be available in the `dist` directory.
@@ -42,42 +42,45 @@ To build the executable from the source, follow these steps:
 
 ## Run in GUI mode
     ```sh
-       python3  googledoc.py -g
+     python3  googledoc.py -g
        ```
-  #        OR
+  ##              OR
                  
     ```sh
-         python3  googledoc.py --gui
+     python3  googledoc.py --gui
          ```
 
 
 ## CLI mode
 1. Clone the repositor:
     ```sh
-       git clone https://github.com/Musharraf33/projects33-google-dorking.git
-       cd googledoc
+     git clone https://github.com/Musharraf33/projects33-google-dorking.git
        ```
+#   
+   ```sh
+     cd projects33-google-dorking.git
+   ```
      
 2. Open help manu:
 ```sh
    python googledoc.py --help
    ```
- #             OR 
+ ##                     OR 
 ```sh
-   python googledoc.py -h
+     python googledoc.py -h
    ```
 
-3. Use argument  :
+3. Run in CLI mode, used your own Dork or custom:
     ```sh
-    python3 googledoc.py -u < domain > -e < select search engine >  -d < dork >  -t 2
+     python3 googledoc.py -t < targer domain or url > -s < select search engine >  -d < dork >   
 
     ```
 
-4. Also use file which contain number of dorks :
+4. Use dork file for Dorking :
     ```sh
-     python googledoc.py 
+     python3  googledoc.py -t <target> -s <Search_engien_name>  -f <file path name or path > 
     ```
-
+5. All the result are  save in output directory  
 
 
 ## Important Notes

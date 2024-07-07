@@ -16,6 +16,7 @@ GoogleDoc is a simple tool for performing Google dorking on a specified target d
 
 2. **Command-line Options:**
     - Run `GoogleDoc --help` to see the help message.
+    - 
 
 ## Building from Source
 
@@ -31,20 +32,24 @@ To build the executable from the source, follow these steps:
 ```sh
    pip install -r requirements.txt
    ```
-3. Install `pyinstaller`:
+3. Install `pyinstaller` if your system don't have Python installed then run this :
     ```sh
     pip install pyinstaller
-    ```
-
-4. Run in GUI mode:
-    ```sh
-     python googledoc.py
     ```
 
 5. The executable will be available in the `dist` directory.
 
 
-
+## Run in GUI mode
+    ```sh
+       python3  googledoc.py -g
+    
+    ```
+                 OR 
+    ```sh
+       python3  googledoc.py --gui
+    
+    ```
 
 
 ## CLI mode
@@ -57,10 +62,11 @@ To build the executable from the source, follow these steps:
 2. Open help manu:
 ```sh
    python googledoc.py --help
-   ```
+```
+              OR 
 ```sh
    python googledoc.py -h
-   ```
+```
 
 3. Use argument  :
     ```sh

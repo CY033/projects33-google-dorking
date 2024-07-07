@@ -29,9 +29,9 @@ To build the executable from the source, follow these steps:
     ```
  
 2. Run the following command to install requirements:
-```sh
-     pip install -r requirements.txt
-   ```
+    ```sh
+      pip install -r requirements.txt
+    ```
 3. Install `pyinstaller` if your system don't have Python installed then run this :
     ```sh
      pip install pyinstaller
@@ -44,7 +44,7 @@ To build the executable from the source, follow these steps:
     ```sh
      python3  googledoc.py -g
        ```
-  ##              OR
+  #              OR
                  
     ```sh
      python3  googledoc.py --gui

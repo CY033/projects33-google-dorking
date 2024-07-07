@@ -89,6 +89,4 @@ To build the executable from the source, follow these steps:
 - Before start Dorking open firfox or any browser.
 
 
-## License
 
-This project is licensed under the MIT License.

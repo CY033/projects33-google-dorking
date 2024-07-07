@@ -43,30 +43,29 @@ To build the executable from the source, follow these steps:
 ## Run in GUI mode
     ```sh
        python3  googledoc.py -g
-    
-    ```
-                 OR 
+       ```
+  #        OR
+                 
     ```sh
-       python3  googledoc.py --gui
-    
-    ```
+         python3  googledoc.py --gui
+         ```
 
 
 ## CLI mode
 1. Clone the repositor:
     ```sh
-    git clone https://github.com/Musharraf33/projects33-google-dorking.git
-    cd googledoc
-    ```
+       git clone https://github.com/Musharraf33/projects33-google-dorking.git
+       cd googledoc
+       ```
      
 2. Open help manu:
 ```sh
    python googledoc.py --help
-```
-              OR 
+   ```
+ #             OR 
 ```sh
    python googledoc.py -h
-```
+   ```
 
 3. Use argument  :
     ```sh

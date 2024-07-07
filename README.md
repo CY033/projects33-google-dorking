@@ -42,12 +42,12 @@ To build the executable from the source, follow these steps:
 
 ## Run in GUI mode
     ```sh
-     python3  googledoc.py -g
-       ```
+      python3  googledoc.py -g
+    ```
   #              OR
                  
     ```sh
-     python3  googledoc.py --gui
+          python3  googledoc.py --gui
          ```
 
 

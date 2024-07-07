@@ -40,16 +40,15 @@ To build the executable from the source, follow these steps:
 5. The executable will be available in the `dist` directory.
 
 
-## Run in GUI mode
-    ```sh
-       python3  googledoc.py -g
-      ```
-  #              OR
-                 
-    ```sh
-       python3  googledoc.py --gui
-      ```
-
+# Run in GUI mode
+   
+ ```sh
+    python3  googledoc.py -g
+   ```
+ ##                     OR 
+```sh
+      python3  googledoc.py --gui
+   ```
 
 ## CLI mode
 1. Clone the repositor:

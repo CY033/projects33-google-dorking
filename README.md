@@ -24,7 +24,7 @@ To build the executable from the source, follow these steps:
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/Musharraf33/projects33-google-dorking.git
+     https://github.com/CY033/projects33-google-dorking.git
      cd googledoc
     ```
  
@@ -53,7 +53,7 @@ To build the executable from the source, follow these steps:
 ## CLI mode
 1. Clone the repositor:
     ```sh
-     git clone https://github.com/Musharraf33/projects33-google-dorking.git
+      https://github.com/CY033/projects33-google-dorking.git
        ```
 #   
    ```sh

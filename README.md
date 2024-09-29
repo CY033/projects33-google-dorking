@@ -2,6 +2,11 @@
 
 GoogleDoc is a simple tool for performing Google dorking on a specified target domain. 
 
+
+![image](https://github.com/user-attachments/assets/a6fb5be3-a0b9-4b10-91da-887b484fc795)
+
+
+
 ## Features
 
 - GUI for easy use
